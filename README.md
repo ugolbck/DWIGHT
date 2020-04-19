@@ -3,6 +3,18 @@ DWIGHT
 
 Automated generation of new `The Office` scripts using deep neural networks
 
+TODO
+------------
+- Collect data (bs4)
+- Sequence each character's lines
+- Try text generation on one character
+
+- Get sequence of character conversation, stage direction, etc...
+- Create separate model who talks next and calls the text generator
+
+
+==============================
+
 Project Organization
 ------------
 
