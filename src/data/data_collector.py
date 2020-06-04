@@ -40,12 +40,16 @@ def extract(quote):
         if isinstance(subitem, bs4.element.NavigableString) and subitem != ' ':
             element = preprocess_line(str(subitem.string))
         
-        # Encountering a Tag
-        elif isinstance(subitem, bs4.element.Tag) and len(subitem) > 0:
-
+        # Encountering a `b` Tag
+        elif isinstance(subitem, bs4.element.Tag) and subitem.name == 'b':
+            print(subitem)
+            # Verifies that the element is not a `<u> Deleted Scene </u>`
             if not isinstance(subitem.contents[0], bs4.element.Tag):
+                
+                # Last character is a column `:`
                 element = str(subitem.contents[0][:-1])
-                print(element)
+
+                
             else: 
                 continue
         
