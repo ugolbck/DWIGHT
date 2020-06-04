@@ -5,7 +5,6 @@ import re
 import html
 
 # End product:
-# 1 json (?) file with all individual quotes per character
 # 1 json (?) file as a dictionary with:
 #       -> for each character, a list of question-answer pairs
 
@@ -26,10 +25,13 @@ def preprocess_line(text):
     return text_preproc
 
 def preprocess_char(text):
+    # Removing HTML escape characters
+    # ex. "&amp;" -> "&"
     return html.unescape(text)
 
 
 def extract(quote):
+    # Processing a scene
     lines = []
     characters = []
     for i, subitem in enumerate(quote):
@@ -37,16 +39,20 @@ def extract(quote):
         # Encountering text
         if isinstance(subitem, bs4.element.NavigableString) and subitem != ' ':
             element = preprocess_line(str(subitem.string))
+        
         # Encountering a Tag
         elif isinstance(subitem, bs4.element.Tag) and len(subitem) > 0:
-            print(preprocess_char(str(subitem)))
+
             if not isinstance(subitem.contents[0], bs4.element.Tag):
                 element = str(subitem.contents[0][:-1])
+                print(element)
             else: 
                 continue
+        
         else: 
             continue
-
+        
+        # Every second element is a character/line
         if i%2 != 0:
             characters.append(element)
         else:
