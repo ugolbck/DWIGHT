@@ -4,6 +4,7 @@ from typing import List, Tuple
 from pathlib import Path
 
 class Dataset:
+    """ Dataset object for sentence prediction """
     def __init__(self, path: Path = "data/raw/The-Office-Lines-V3.csv"):
         self.df = pd.read_csv(path, encoding="latin-1")
 
