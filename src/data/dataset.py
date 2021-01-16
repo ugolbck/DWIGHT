@@ -32,7 +32,7 @@ class Dataset:
         return lines
     
     def get_line_pairs_as_list(self, char) -> List[str]:
-    """Get list of previous line + line for a given character"""
+        """Get list of previous line + line for a given character"""
         lines = []
         for i, line in enumerate(self.df.loc[:, "line"]):
             if self.df.at[i, "speaker"] == char: 
