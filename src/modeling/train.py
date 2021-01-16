@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+""" Training side """
 from data import Dataset, Processor
 
 from typing import Optional
@@ -27,15 +27,19 @@ def create_model(
 ) -> Model:
     input_len = max_sequence_len - 1
     input = Input(shape=(input_len))
-    x = Embedding(total_words, 150, mask_zero=True)(input)
-    x = LSTM(64, activation="relu", recurrent_regularizer="l2", dropout=0.2)(x)
+    x = Embedding(total_words, embed_size, mask_zero=True)(input)
+    x = LSTM(units, activation="relu", recurrent_regularizer="l2", dropout=0.2)(x)
     output = Dense(total_words, activation='softmax')(x)
     model = Model(input, output)
     model.compile(loss='categorical_crossentropy', optimizer='Adam')
-    
     return model
 
-def fit_model(model):
+def fit_model(model: Model, X, y, epochs: int, batch_size: int, val_size: int):
+    # TODO: early stopping
+    history = model.fit(X_train, y, epochs=epochs, verbose=1)
+    return history
+
+def evaluate(hist):
     pass
 
 def main():
