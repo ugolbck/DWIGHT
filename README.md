@@ -14,6 +14,11 @@ TODO
 
 - Create separate model to predict who talks next and calls the text generator (keras)
 
+
+Example
+------------
+('What are you doing?', "Just clearing my desk. I can't concentrate.")
+
 ------------
 **Disclaimer**
 
