@@ -5,15 +5,16 @@ DWIGHT
 Automated generation of new `The Office` scripts using deep neural networks
 
 ## How to ##
+0. Prerequites are `Python 3.x` and `pip` installed on a `Linux` or `MacOS` system
 1. download the project locally with `git clone https://github.com/ugolbck/DWIGHT.git`
-2. run `cd DWIGHT` to move in the project directory
+2. run `cd DWIGHT`
 3. if `pipenv` is not installed, run `pip install pipenv`
-4. run `pipenv install` to install dependencies in the virtual environment
+4. run `pipenv install --three` to install dependencies in the virtual environment
 5. run `pipenv shell` to enter the virtual environment
-6. run `cd src`to move in the source code directory
-7. run `uvicorn main:app --port 8080` to run the web server on port 8080
-8. open another terminal and try out the model prediction by running `curl -X GET "http://localhost:8080/predict/?seed_text=Hello%20Dwight&len_resp=10" -H  "accept: application/json"`, OR by visiting the URL `http://localhost:8080/predict/?seed_text=Hello%20Dwight&len_resp=10` in your browser. The input sentence here is "Hello Dwight" and we expect a 10 word answer from the bot.
-9. Leave your feedback and/or issues in the [issues section](https://github.com/ugolbck/DWIGHT/issues), if any
+6. run `cd src`
+7. run `uvicorn main:app` to start the web server (default port is 8000)
+8. open another terminal and try out the model prediction by running `curl -X GET "http://localhost:8000/predict/?seed_text=Hello%20Dwight&len_resp=10" -H  "accept: application/json"`, OR by visiting the URL `http://localhost:8000/predict/?seed_text=Hello%20Dwight&len_resp=10` in your browser. The input sentence here is "Hello Dwight" and we expect a 10 word answer from the bot.
+9. Leave your feedback and/or issues in the [issues section](https://github.com/ugolbck/DWIGHT/issues)
 
 
 ## TODO ##
