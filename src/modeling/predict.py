@@ -16,8 +16,7 @@ def load_tools(path_model: Path, path_tok: Path):
         with open(path_tok, "rb") as f:
             tokenizer = pickle.load(f)
     else:
-        print("Empty tokenizer file")
-    print(model.summary(), "\n", max_len, tokenizer)
+        raise FileNotFoundError
     return model, max_len, tokenizer
 
 
