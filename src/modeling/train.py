@@ -4,6 +4,7 @@ from data import Dataset, Processor
 
 from typing import Optional
 from pathlib import Path
+import pickle
 
 from tensorflow.keras import Model
 from tensorflow.keras.layers import Input, Embedding, LSTM, Dense
@@ -15,9 +16,8 @@ def load_data(path_to_data: Optional[Path] = None) -> Dataset:
         return Dataset(path=path_to_data)
     return Dataset()
 
-def prepare_data(dataset: Dataset):
-    processor = Processor(dataset.get_line_pairs_as_list("Dwight"))
-    return processor.create_inputs()
+def load_processor(dataset: Dataset):
+    return Processor(dataset.get_line_pairs_as_list("Dwight"))
 
 def create_model(
     max_sequence_len: int,
@@ -34,15 +34,21 @@ def create_model(
     model.compile(loss='categorical_crossentropy', optimizer='Adam')
     return model
 
-def fit_model(model: Model, X, y, epochs: int, batch_size: int, val_size: int):
+def fit_model(model: Model, X, y, epochs: int, batch_size: int, val_size: float):
     # TODO: early stopping
-    history = model.fit(X_train, y, epochs=epochs, verbose=1)
+    history = model.fit(X_train, y, epochs=epochs, validation_size=val_size, verbose=1) # verify vald_size name
     return history
 
 def evaluate(hist):
     pass
 
+def save_tools(model, tokenizer, path: Path):
+    # TODO: create new directory with date and hyperparam config + callbacks
+    model.save(path)
+    pickle.dump(tokenizer, path)
+
 def main():
     data = load_data()
-    X, y, max_len, n_words = prepare_data(data)
+    processor = load_processor(data)
+    X, y, max_len, n_words = processor.create_inputs()
     print(len(X), len(y), max_len, n_words)

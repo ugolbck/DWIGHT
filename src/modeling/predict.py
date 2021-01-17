@@ -2,13 +2,15 @@
 """ Prediction side """
 
 import pickle
-from tensorflow.keras import Model
+from pathlib import Path
+from tensorflow.keras.models import load_model
 
-def load_model():
-    pass
+def load_tools(path_model: Path, path_tok: Path):
+    model = load_model(path_model)
+    max_len = model.get_config()["layers"][0]["config"]["batch_input_shape"][1] + 1
+    tokenizer = pickle.load(path_tok)
+    return model, max_len, tokenizer
 
-def load_tokenizer():
-    pass
 
 def generate_text(seed_text, next_words, model, max_sequence_len, tokenizer):
     response = seed_text
@@ -18,13 +20,10 @@ def generate_text(seed_text, next_words, model, max_sequence_len, tokenizer):
         
         predicted = model.predict(tokens, verbose=0)
         predicted = np.argmax(predicted)
-        try:
-            new_word = tokenizer.index_word[predicted]
-        except:
-            raise
-        # for word, index in tokenizer.word_index.items():
-        #     if index == predicted:
-        #         output_word = word
-        #         break
+        
+        new_word = tokenizer.index_word[predicted]
         response += new_word + " "
     return response
+
+def predict(s, l):
+    return "Boobs"

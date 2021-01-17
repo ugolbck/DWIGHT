@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from pathlib import Path
 import pickle
 import numpy as np
 
@@ -35,12 +36,12 @@ class Processor:
                 corpus_as_ids.append(n_gram_sequence)
         return corpus_as_ids
 
-    def save_tokenizer(self): # should this be static?
+    def save_tokenizer(self, path: Path): # should this be static?
         """
-        Save Processor with Tokenizer fit on training data
+        Save Tokenizer fit on training data
         """
-        if self.is_fit():
-            pass
+        assert self.is_fit(), "The Tokenizer object is not fit on texts"
+        pickle.dump(self.tokenizer, path)
 
     def is_fit(self) -> bool: # to modify
         """  """        
