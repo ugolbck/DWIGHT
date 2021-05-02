@@ -9,6 +9,7 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.utils import to_categorical
 
+
 def load_tools(path_model: Path, path_tok: Path):
     model = load_model(path_model)
     max_len = model.get_config()["layers"][0]["config"]["batch_input_shape"][1] + 1
@@ -21,6 +22,7 @@ def load_tools(path_model: Path, path_tok: Path):
 
 
 def predict(seed_text, next_words, model, max_sequence_len, tokenizer):
+    # TODO: rework this with <bos>/<eos> special tokens
     response = seed_text
     for _ in range(next_words):
         tokens = tokenizer.texts_to_sequences([response])

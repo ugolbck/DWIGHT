@@ -3,13 +3,14 @@ import pandas as pd
 from typing import List, Tuple
 from pathlib import Path
 
+
 class Dataset:
     """ Dataset object for sentence prediction """
-    def __init__(self, path: Path = "/Users/ugo/Documents/Projects/project-dwight/DWIGHT/data/raw/The-Office-Lines-V3.csv"):
+    def __init__(self, path: Path = "/Users/ugo/Documents/Projects/DWIGHT/assets/transcripts/The-Office-Lines-V3.csv"):
         try:
             self.df = pd.read_csv(path, encoding="latin-1")
-        except:
-            raise FileNotFoundError
+        except FileNotFoundError:
+            raise
 
     def get_lines(self, char) -> List[str]:
         """Get list of lines for a given character"""

@@ -8,11 +8,14 @@ from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.utils import to_categorical
 
+from dwight.data.dataset import Dataset
+
+
 class Processor:
     """ Common base for handling data """
-    def __init__(self, data):
-        self.data = data
-        self.tokenizer = Tokenizer(filters='', lower=True)
+    def __init__(self, in_data):
+        self.data = in_data
+        self.tokenizer = Tokenizer(filters='', lower=False)
     
     def create_inputs(self):
         self.tokenizer.fit_on_texts(self.data)
@@ -36,7 +39,7 @@ class Processor:
                 corpus_as_ids.append(n_gram_sequence)
         return corpus_as_ids
 
-    def save_tokenizer(self, path: Path): # should this be static?
+    def save_tokenizer(self, path: Path):
         """
         Save Tokenizer fit on training data
         """
@@ -48,3 +51,10 @@ class Processor:
         if len(self.tokenizer.word_index) > 1:
             return True
         return False
+
+"""
+data = Dataset()
+proc = Processor(in_data=data.get_line_pairs_as_list("Dwight"))
+X, y, max_len, n_words = proc.create_inputs()
+print(X[1])
+"""
