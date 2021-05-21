@@ -6,7 +6,7 @@ authors = ["Ugo Loobuyck <ugo813@hotmail.fr>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-tensorflow = "^2.4.1"
+tensorflow = "^2.5.0"
 pandas = "^1.2.4"
 
 [tool.poetry.dev-dependencies]
